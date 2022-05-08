@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main-div">
+        <div class="child-one">
+            <p>I am Child 1</p>
+        </div>
+        <div class="child-two">
+            <p id="a02">I am Child 2</p>
+        </div>
+        <div class="child-three">
+            <p id="a01">I am Child 3</p>
+        </div>
+        <form>
+            <label for="gender">Male</label>
+            <input type="radio" id="gender" name="gender" />
+            <label for="gender">Female</label>
+            <input type="radio" id="gender" name="gender" />
+
+        </form>
+        <button onclick="getName()">Click</button>
+        <p id='a05' onmouseup="mouseUp()" onmousedown="mouseDown()">This is sample text
+            This is an example data. The text will change its color when mouseup and mousedown
+        </p>
+        <p id='a06' onmouseup="mouseUp()" onmousedown="mouseDown()">This is sample text
+            This is an examplevvvvvvvv data. The text will change its color when mouseup and mousedown
+        </p>
+        <input type="text" onkeypress="keyPress()" onkeydown="keyDown()" onkeyup="keyUp()">
+        <p id="a07"></p>
+
+        <label for="name">Your name is:</label>
+        <input type="text" id="name" />
+        <select onchange="updateValue()" id="opt">
+            <option value="">Select One</option>
+            <option value="Chocolate">Chocolate</option>
+            <option value="Strawberry">Strawberry</option>
+            <option value="Vanilla">Vanilla</option>
+        </select>
+        <p id="a08"></p>
+
+
+        <p id="a09">Guess My Name?</p>
+        <button id="btn">Click Here</button>
+        <button id="btn1">Don't Want</button>
+
+        <p id="a10"></p>
+        <button id="btn2">Start Counter</button>
+        <button id="btn3">Pause Counter</button>
+    </div>
+
+    <script>
+        //console.log(document.getElementsByClassName('child-one'));
+        //console.log(document.getElementsByTagName('p'));
+        //if element with certain id is not present 'null' is returned
+
+
+        const btn2 = document.querySelector('#btn2');
+        const btn3 = document.querySelector('#btn3');
+        const myNum= document.querySelector('#a10');
+        let num =0;
+        btn2.addEventListener('click', ()=>{
+            timeref=setInterval(()=>{
+                myNum.innerHTML=`${num}`;
+                num++;
+            },1000)
+        })
+        btn3.addEventListener('click',()=>{
+            clearInterval(timeref);
+        })
+        const myName = document.querySelector('#a09');
+        const btn = document.querySelector('#btn');
+        const btn1 = document.querySelector('#btn1');
+        
+        const showMyName = () => {
+                myTimeout = setTimeout(() => {
+            myName.innerHTML = "Rishabh Sharma"
+        }, 6000)}
+
+        const dontShowMyName = () => {
+            clearTimeout(myTimeout);
+        }
+
+        btn1.addEventListener('click', dontShowMyName);
+        btn.addEventListener('click', showMyName);
+
+
+        const updateValue = () => {
+            const result = document.getElementById('a08');
+            const inputChange = document.getElementById('name').value;
+            const iceCreams = document.getElementById('opt').value;
+            result.innerHTML = `Mr. ${inputChange} likes ${iceCreams} ice-cream flavour.`;
+
+        }
+        function mouseDown() {
+            document.getElementById('a05').style.color = "red";
+        }
+
+        function mouseUp() {
+            document.getElementById('a05').style.color = '#000';
+        }
+
+        const mEnter = document.getElementById('a06');
+        mEnter.addEventListener('mouseenter', () => {
+            mEnter.style.backgroundColor = 'red';
+            console.log('Mouse has entered');
+        })
+
+        mEnter.addEventListener('mouseleave', () => {
+            mEnter.style.backgroundColor = 'pink';
+            console.log('Mouse has left');
+        })
+
+        const keyPress = () => {
+            console.log(event);
+            document.getElementById('a07').innerHTML = `you pressed ${event.key} and it's code is ${event.code}`;
+        }
+
+        const keyDown = () => {
+            console.log(event);
+            document.getElementById('a07').innerHTML = "key is down";
+        }
+
+        const keyUp = () => {
+            console.log(event);
+            document.getElementById('a07').innerHTML = "key is up";
+        }
+
+
+
+
+
+
+
+
+
+
+
+        function getName() {
+
+            console.log(document.getElementsByName('gender'));
+            document.querySelector('.main-div .child-one p').style.color = "red";
+            document.querySelector('#a01').innerHTML = 'I am third Child';
+            document.querySelector('#a01').addEventListener('click', () => {
+                //if we have same eventlistener on elements. They work in sequence
+                alert(' Event Listener 1');
+            })
+            document.querySelector('#a01').addEventListener('click', () => {
+                alert(' Event Listener 2');
+            })
+
+
+            document.querySelector('#a01').onclick = function () {
+                console.log('This will work');
+            }
+            document.querySelector('#a01').onclick = function () { //if same event is applied to an element
+                //latest event works
+                alert("Hello")
+            }
+            const checkEvent = document.getElementById('a02');
+            const fireEvent = () => {
+                console.log(event);
+                console.log(event.target);
+                console.log(event.type);
+            }
+            checkEvent.addEventListener('click', fireEvent);
+
+
+
+
+
+
+        }
+    </script>
+</body>
+
+</html>
